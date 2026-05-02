@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>IES e-Learning | Immersive Interactive Learning</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(145deg, #082797 0%, #eef2fa 100%);
+      color: #1a2c3e;
+      line-height: 1.4;
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    /* animated background orbs */
+    .bg-orb {
+      position: fixed;
+      width: 70vw;
+      height: 70vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(74, 144, 226, 0.1) 0%, rgba(74, 144, 226, 0) 70%);
+      top: -20vh;
+      right: -20vw;
+      z-index: -2;
+      pointer-events: none;
+      animation: floatOrb 22s infinite alternate ease-in-out;
+    }
+
+    .bg-orb2 {
+      left: -30vw;
+      bottom: -20vh;
+      top: auto;
+      right: auto;
+      width: 90vw;
+      height: 90vw;
+      background: radial-gradient(circle, rgba(168, 85, 247, 0.08) 0%, rgba(168, 85, 247, 0) 70%);
+      animation: floatOrb 28s infinite alternate-reverse;
+    }
+
+    @keyframes floatOrb {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(5%, 8%) scale(1.1); }
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    /* Glass header */
+    .glass-header {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(14px);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(255,255,255,0.6);
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 0;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.8rem;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #1E3C72, #2A5298);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .logo i {
+      background: none;
+      color: #2A5298;
+      margin-right: 6px;
+    }
+
+    .nav-links a {
+      margin-left: 2rem;
+      text-decoration: none;
+      font-weight: 500;
+      color: #1f3a5f;
+      transition: 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: #4a75c6;
+    }
+
+    .cta-btn-small {
+      background: #1e3c72;
+      color: white !important;
+      padding: 0.5rem 1.2rem;
+      border-radius: 40px;
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+
+    .cta-btn-small:hover {
+      background: #0f2b52;
+      transform: scale(1.02);
+      box-shadow: 0 8px 18px rgba(30,60,114,0.2);
+    }
+
+    /* Hero section */
+    .hero {
+      padding: 3rem 0 5rem 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .hero-content {
+      flex: 1.2;
+      animation: fadeSlideUp 0.8s ease-out;
+    }
+
+    .hero-badge {
+      background: rgba(74, 144, 226, 0.12);
+      display: inline-block;
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #1e5a9e;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-content h1 {
+      font-size: 3.3rem;
+      font-weight: 800;
+      line-height: 1.2;
+      background: linear-gradient(to right, #162b42, #2b4c7c);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      color: #2c4c6e;
+      margin-bottom: 2rem;
+      max-width: 90%;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+
+    .stat {
+      text-align: left;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      color: #1e3c72;
+    }
+
+    /* ---------- ENHANCED INTERACTIVE LEARNING UI IMAGE ---------- */
+    .hero-image {
+      flex: 0.9;
+      text-align: center;
+      animation: fadeScale 0.9s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+      position: relative;
+    }
+
+    .interactive-card-ui {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(2px);
+      border-radius: 2.5rem;
+      padding: 1.5rem;
+      box-shadow: 0 30px 45px -20px rgba(0, 0, 0, 0.25), 0 0 0 1px rgba(255,255,255,0.7) inset;
+      transition: all 0.4s ease;
+      transform: rotateY(2deg) rotateX(2deg);
+      transition: transform 0.3s;
+    }
+
+    .interactive-card-ui:hover {
+      transform: rotateY(0deg) rotateX(0deg) scale(1.01);
+      box-shadow: 0 40px 55px -18px rgba(0, 0, 0, 0.3);
+    }
+
+    .ui-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #f0f4fc;
+      padding: 0.7rem 1rem;
+      border-radius: 2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .ui-dots span {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 6px;
+    }
+    .ui-dots span:nth-child(1) { background: #ff5f56; }
+    .ui-dots span:nth-child(2) { background: #ffbd2e; }
+    .ui-dots span:nth-child(3) { background: #27c93f; }
+
+    .ui-header-text {
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: #2c3e66;
+      background: rgba(255,255,240,0.6);
+      padding: 0.2rem 0.8rem;
+      border-radius: 20px;
+    }
+
+    .main-dashboard {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+
+    .learning-module {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1rem;
+      flex: 1;
+      box-shadow: 0 8px 14px rgba(0,0,0,0.02);
+      border: 1px solid #eef2ff;
+      transition: all 0.2s;
+    }
+
+    .module-icon {
+      font-size: 1.8rem;
+      color: #2a5298;
+      margin-bottom: 0.6rem;
+    }
+
+    .module-title {
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .progress-bar-bg {
+      background: #e4e9f2;
+      border-radius: 20px;
+      height: 6px;
+      margin: 0.7rem 0;
+      width: 100%;
+    }
+
+    .progress-fill {
+      width: 68%;
+      height: 6px;
+      background: linear-gradient(90deg, #2a5298, #5b8fd4);
+      border-radius: 20px;
+      animation: pulseWidth 2s infinite alternate;
+    }
+
+    .live-session {
+      background: linear-gradient(105deg, #fef7e0, #fff2df);
+      border-radius: 1rem;
+      padding: 0.8rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-top: 1rem;
+      border: 1px solid #ffe1b3;
+    }
+
+    .pulse-dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background-color: #f97316;
+      border-radius: 50%;
+      margin-right: 8px;
+      animation: pulseRed 1.4s infinite;
+    }
+
+    .instructor-avatars {
+      display: flex;
+      margin-top: 1rem;
+      gap: 0.4rem;
+    }
+
+    .avatar {
+      width: 32px;
+      height: 32px;
+      background: #cbdff2;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: bold;
+      color: #1e3c72;
+      border: 2px solid white;
+    }
+
+    @keyframes pulseRed {
+      0% { opacity: 0.4; transform: scale(0.8);}
+      100% { opacity: 1; transform: scale(1.2);}
+    }
+
+    @keyframes pulseWidth {
+      0% { width: 68%; }
+      100% { width: 82%; }
+    }
+
+    /* Buttons & cards */
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(95deg, #1e3c72, #2b4c7c);
+      border: none;
+      padding: 0.9rem 2rem;
+      border-radius: 48px;
+      font-weight: 600;
+      font-size: 1rem;
+      color: white;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 28px -8px rgba(30,60,114,0.4);
+    }
+
+    .btn-secondary {
+      background: rgba(255,255,240,0.7);
+      backdrop-filter: blur(6px);
+      border: 1px solid #cbdde9;
+      padding: 0.9rem 2rem;
+      border-radius: 48px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    /* courses */
+    .section-title {
+      text-align: center;
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    .section-sub {
+      text-align: center;
+      color: #4a627a;
+      margin-bottom: 3rem;
+    }
+    .courses-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0;
+    }
+    .course-card {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(4px);
+      border-radius: 2rem;
+      padding: 1.8rem;
+      transition: all 0.35s cubic-bezier(0.2, 0.9, 0.4, 1.2);
+      cursor: pointer;
+      border: 1px solid rgba(255,255,240,0.7);
+    }
+    .course-card:hover {
+      transform: translateY(-12px) scale(1.01);
+      background: white;
+      box-shadow: 0 24px 36px -12px rgba(0, 0, 0, 0.2);
+    }
+    .course-icon { font-size: 2.5rem; margin-bottom: 1rem; color: #2b4c7c; }
+    .course-tag { background: #e9f0fa; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.7rem; display: inline-block; margin: 0.8rem 0; }
+    .interactive-chip { display: flex; justify-content: space-between; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e2edf7; }
+
+    /* CTA Banner */
+    .cta-banner {
+      background: linear-gradient(115deg, #0a1f31, #112b44);
+      border-radius: 3rem;
+      padding: 3rem 2rem;
+      margin: 4rem 0;
+      text-align: center;
+      color: white;
+    }
+    .newsletter-group { display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem; margin-top: 2rem; }
+    #emailInput { padding: 1rem 1.8rem; border-radius: 60px; border: none; width: 280px; }
+    .btn-glow { background: linear-gradient(105deg, #ff9f4a, #ff8050); border: none; padding: 1rem 2rem; border-radius: 60px; font-weight: bold; cursor: pointer; }
+    #toastMsg { margin-top: 1rem; background: rgba(0,0,0,0.6); display: inline-block; padding: 0.3rem 1.2rem; border-radius: 40px; font-size: 0.9rem; }
+
+    footer { text-align: center; padding: 2rem; border-top: 1px solid rgba(0,0,0,0.05); }
+
+    @keyframes fadeSlideUp { 0% { opacity: 0; transform: translateY(38px); } 100% { opacity: 1; transform: translateY(0); } }
+    @keyframes fadeScale { 0% { opacity: 0; transform: scale(0.94); } 100% { opacity: 1; transform: scale(1); } }
+    @media (max-width: 850px) { .hero-content h1 { font-size: 2.4rem; } .navbar { flex-direction: column; gap: 1rem; } .hero { flex-direction: column-reverse; } .main-dashboard { flex-direction: column; } }
+
+    .ripple-btn { position: relative; overflow: hidden; }
+    @keyframes rippleAnim { to { transform: scale(6); opacity: 0; } }
+    .stat-number { transition: transform 0.2s; display: inline-block; }
+    .stat-item:hover .stat-number { transform: scale(1.08); color: #ff8c42; }
+  </style>
+</head>
+<body>
+<div class="bg-orb"></div>
+<div class="bg-orb bg-orb2"></div>
+
+<header class="glass-header">
+  <div class="container">
+    <div class="navbar">
+      <div class="logo"><i class="fas fa-graduation-cap"></i> IES<span style="font-weight:600"> e-Learning</span></div>
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#" id="coursesNavLink">Courses</a>
+        <a href="#" id="contactNavLink">Contact</a>
+        <a href="#" class="cta-btn-small" id="navCtaBtn"><i class="fas fa-user-graduate"></i> Enroll Now</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="container">
+    <!-- Hero Section with beautiful Interactive UI image -->
+    <section class="hero">
+      <div class="hero-content">
+        <span class="hero-badge"><i class="fas fa-chalkboard-user"></i> 100% online · live & recorded</span>
+        <h1>Shape Your Future <br>with IES e-Learning</h1>
+        <p>Industry-recognized certifications, expert mentors, and flexible learning paths — launch your career from anywhere.</p>
+        <div class="hero-stats">
+          <div class="stat stat-item"><div class="stat-number" id="statStudents">12k+</div><div>Active Learners</div></div>
+          <div class="stat stat-item"><div class="stat-number" id="statCourses">45+</div><div>Expert Courses</div></div>
+          <div class="stat stat-item"><div class="stat-number">96<span style="font-size:1rem">%</span></div><div>Placement Support</div></div>
+        </div>
+        <div class="btn-group">
+          <button class="btn-primary ripple-btn" id="heroMainCta"><i class="fas fa-rocket"></i> Start Learning →</button>
+          <button class="btn-secondary" id="exploreCoursesBtn"><i class="fas fa-book-open"></i> Explore Courses</button>
+        </div>
+      </div>
+      <div class="hero-image">
+        <!-- BETTER UI: Interactive Learning Dashboard Mockup -->
+        <div class="interactive-card-ui">
+          <div class="ui-header">
+            <div class="ui-dots"><span></span><span></span><span></span></div>
+            <div class="ui-header-text"><i class="fas fa-desktop"></i> interactive session · live</div>
+            <i class="fas fa-expand" style="color:#8aa0c0;"></i>
+          </div>
+          <div class="main-dashboard">
+            <div class="learning-module">
+              <div class="module-icon"><i class="fas fa-laptop-code"></i></div>
+              <div class="module-title">Full Stack Dev</div>
+              <div class="progress-bar-bg"><div class="progress-fill"></div></div>
+              <small style="color:#4a627a;">68% completed</small>
+            </div>
+            <div class="learning-module">
+              <div class="module-icon"><i class="fas fa-chart-line"></i></div>
+              <div class="module-title">Data Science</div>
+              <div class="progress-bar-bg"><div class="progress-fill" style="width:42%; animation: none;"></div></div>
+              <small style="color:#4a627a;">42% · module 3/8</small>
+            </div>
+          </div>
+          <div class="live-session">
+            <div><span class="pulse-dot"></span> <strong style="font-size:0.85rem;">LIVE NOW: AI Workshop</strong></div>
+            <div style="margin-left: auto;"><i class="fas fa-users"></i> 142 attending</div>
+          </div>
+          <div class="instructor-avatars">
+            <div class="avatar"><i class="fas fa-user"></i></div>
+            <div class="avatar"><i class="fas fa-user-tie"></i></div>
+            <div class="avatar">+6</div>
+            <span style="font-size:0.7rem; margin-left:0.5rem; align-self:center;">Expert mentors online</span>
+          </div>
+          <div style="margin-top: 1rem; font-size: 0.7rem; text-align:center; color:#3c5a8f;"><i class="fas fa-sync-alt"></i> real-time code editor · interactive quizzes</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Courses Section -->
+    <div id="coursesSection">
+      <h2 class="section-title">📚 Top In-Demand Programs</h2>
+      <p class="section-sub">choose your path, learn at your pace, and earn verified certificates</p>
+      <div class="courses-grid" id="coursesContainer"></div>
+    </div>
+
+    <!-- CTA Banner -->
+    <div class="cta-banner">
+      <h2><i class="fas fa-bell"></i> 🎁 Limited Time: Early Access Offer</h2>
+      <p>Get 30% off on first course + free career guidance session. Join the waitlist now!</p>
+      <div class="newsletter-group">
+        <input type="email" id="emailInput" placeholder="Your best email" autocomplete="email">
+        <button class="btn-glow ripple-btn" id="subscribeBtn">Claim Offer →</button>
+      </div>
+      <div id="toastMsg"></div>
+    </div>
+  </div>
+</main>
+<footer>
+  <p>© 2025 IES e-Learning — Empowering global careers. All rights reserved.</p>
+  <p style="margin-top:0.5rem"><i class="fas fa-heart" style="color:#ff6b6b"></i> Interactive UI dashboard · real-time visual engagement</p>
+</footer>
+
+<script>
+  const coursesData = [
+    { id: 1, name: "Full Stack Development", icon: "fa-code", duration: "6 months", tag: "🔥 Most Popular" },
+    { id: 2, name: "Data Science & AI", icon: "fa-chart-line", duration: "8 months", tag: "⭐ Advanced" },
+    { id: 3, name: "Digital Marketing", icon: "fa-bullhorn", duration: "4 months", tag: "📈 High Demand" },
+    { id: 4, name: "Cloud Computing (AWS)", icon: "fa-cloud", duration: "5 months", tag: "☁️ Professional" }
+  ];
+
+  function renderCourses() {
+    const container = document.getElementById('coursesContainer');
+    if (!container) return;
+    container.innerHTML = '';
+    coursesData.forEach(course => {
+      const card = document.createElement('div');
+      card.classList.add('course-card');
+      card.innerHTML = `<div class="course-icon"><i class="fas ${course.icon}"></i></div><h3>${course.name}</h3><div class="course-tag">${course.tag}</div><p><i class="far fa-clock"></i> ${course.duration} · self-paced</p><div class="interactive-chip"><span class="enroll-badge"><i class="fas fa-graduation-cap"></i> enroll now</span><i class="fas fa-arrow-right"></i></div>`;
+      card.addEventListener('click', () => showFloatingMessage(`✨ You selected ${course.name}! A specialist will contact you.`, "#1e3c72"));
+      container.appendChild(card);
+    });
+  }
+
+  function showFloatingMessage(message, bgColor = "#162b42") {
+    let toast = document.getElementById('toastMsg');
+    if(!toast) {
+      const banner = document.querySelector('.cta-banner');
+      if(banner){
+        const div = document.createElement('div'); div.id = "toastMsg"; div.style.marginTop = "1rem"; div.style.background = bgColor; div.style.padding = "0.4rem 1.5rem"; div.style.borderRadius = "40px"; div.style.color = "white"; banner.appendChild(div); toast = div;
+      } else { alert(message); return; }
+    }
+    toast.textContent = message;
+    toast.style.opacity = "1";
+    setTimeout(() => { if(toast) toast.textContent = ""; }, 2500);
+  }
+
+  function createRipple(event, element) {
+    const btn = element;
+    const rect = btn.getBoundingClientRect();
+    const ripple = document.createElement('span');
+    const diameter = Math.max(rect.width, rect.height);
+    const radius = diameter / 2;
+    ripple.style.width = ripple.style.height = `${diameter}px`;
+    ripple.style.position = 'absolute';
+    ripple.style.left = `${event.clientX - rect.left - radius}px`;
+    ripple.style.top = `${event.clientY - rect.top - radius}px`;
+    ripple.style.borderRadius = '50%';
+    ripple.style.backgroundColor = 'rgba(255,255,255,0.5)';
+    ripple.style.animation = 'rippleAnim 0.5s linear';
+    btn.style.position = 'relative';
+    btn.style.overflow = 'hidden';
+    btn.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 500);
+  }
+
+  function bindRipple() {
+    document.querySelectorAll('.ripple-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => createRipple(e, btn));
+    });
+  }
+
+  function scrollToCourses() { document.getElementById('coursesSection')?.scrollIntoView({ behavior: 'smooth' }); }
+  function showEnrollPrompt() { showFloatingMessage("🎯 Ready to advance? Fill your details & unlock success!", "#1e3c72"); setTimeout(() => { if(confirm("📢 IES e-Learning: Proceed to enrollment form?")) showFloatingMessage("✅ Great! Our team will reach out.", "#2a9d8f"); }, 50); }
+  function handleSubscribe() {
+    const email = document.getElementById('emailInput').value.trim();
+    if (!email || !email.includes('@')) { showFloatingMessage("⚠️ Valid email required.", "#b23c1c"); return; }
+    showFloatingMessage(`🎉 Thanks ${email}! Check your inbox for 30% off code.`, "#2e7d64");
+    document.getElementById('emailInput').value = '';
+    const statElem = document.getElementById('statCourses'); if(statElem) statElem.innerText = "46+";
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    renderCourses(); bindRipple();
+    document.getElementById('heroMainCta')?.addEventListener('click', showEnrollPrompt);
+    document.getElementById('exploreCoursesBtn')?.addEventListener('click', scrollToCourses);
+    document.getElementById('subscribeBtn')?.addEventListener('click', handleSubscribe);
+    document.getElementById('navCtaBtn')?.addEventListener('click', (e) => { e.preventDefault(); showEnrollPrompt(); });
+    document.getElementById('coursesNavLink')?.addEventListener('click', (e) => { e.preventDefault(); scrollToCourses(); });
+    document.getElementById('contactNavLink')?.addEventListener('click', (e) => { e.preventDefault(); showFloatingMessage("📧 admissions@ies-elearning.com | +1 (555) 789-2025", "#1e3c72"); });
+    const studentStat = document.getElementById('statStudents');
+    if(studentStat) { studentStat.addEventListener('mouseenter', () => studentStat.innerText = "12.8k+"); studentStat.addEventListener('mouseleave', () => studentStat.innerText = "12k+"); }
+    document.querySelectorAll('.btn-secondary').forEach(btn => btn.classList.add('ripple-btn'));
+    bindRipple();
+  });
+</script>
+</body>
+</html>
